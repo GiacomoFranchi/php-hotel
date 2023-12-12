@@ -36,8 +36,9 @@
             'distance_to_center' => 50
         ],
     ];
-    $table = "table";
-    $table_bordered = "'table-bordered' 'table'"
+    $table = 'table-bordered';
+
+    
 ?>
 
 <!DOCTYPE html>
@@ -104,7 +105,11 @@
                 </tbody>";
             }
         "</table>";
-            } else{
+            } elseif($_GET == true){
+                for($i = 0; $i < count($hotels); $i++ ) {    ?>
+                    <?php $hotel = $hotels[$i]; 
+                if($hotel['parking'] == true){
+                $p_hotel[] = $hotel;}}   
                 echo 
                 "<table class=$table>
                     <thead>
@@ -115,28 +120,57 @@
                         <th >DISTANZA DAL CENRO</th>
                         <th >PARCHEGGIO</th>
                         </tr>
-                    </thead>" ;
-            }       
-            for($i = 0; $i < count($hotels); $i++ ) {    ?>
-                <?php $hotel = $hotels[$i]; 
-                if($hotel['parking'] == $_GET){
-                    echo
-                "<tbody>
+                    </thead>" ;      
+                        for($j = 0; $j < count($p_hotel); $j++ ) {    ?>
+                        <?php $park = $p_hotel[$j];
+                echo "<tbody>
                     <tr>
-                        <th>{$hotel['name']}</th>
-                        <td>{$hotel['description']}</td>
-                        <td>{$hotel['vote']}</td>
-                        <td>{$hotel['distance_to_center']} km</td>
-                        <td>";if($hotel['parking'] == true){
+                        <th>{$park['name']}</th>
+                        <td>{$park['description']}</td>
+                        <td>{$park['vote']}</td>
+                        <td>{$park['distance_to_center']} km</td>
+                        <td>";if($park['parking'] == true){
                                 echo "<p> Hotel con parcheggio </p>";
                             } else{
                                 echo "<p> Hotel senza parcheggio </p>";
                             }
                         "</td>    
                     </tr>
-                </tbody>";
-            }
-                }
+                </tbody>";}}
+                elseif($_GET == false){
+                    for($i = 0; $i < count($hotels); $i++ ) {    ?>
+                        <?php $hotel = $hotels[$i]; 
+                    if($park !== true){
+                    $np_hotel[] = $hotel;}}   
+                    var_dump($np_hotel);
+                    echo 
+                    "<table class=$table>
+                        <thead>
+                            <tr>
+                            <th >NOME</th>
+                            <th >DESCRIZIONE</th>
+                            <th >VOTO</th>
+                            <th >DISTANZA DAL CENRO</th>
+                            <th >PARCHEGGIO</th>
+                            </tr>
+                        </thead>" ;      
+                            for($j = 0; $j < count($np_hotel); $j++ ) {    ?>
+                            <?php $park = $np_hotel[$j];
+                    echo "<tbody>
+                        <tr>
+                            <th>{$park['name']}</th>
+                            <td>{$park['description']}</td>
+                            <td>{$park['vote']}</td>
+                            <td>{$park['distance_to_center']} km</td>
+                            <td>";if($park['parking'] == true){
+                                    echo "<p> Hotel con parcheggio </p>";
+                                } else{
+                                    echo "<p> Hotel senza parcheggio </p>";
+                                }
+                            "</td>    
+                        </tr>
+                    </tbody>";}}
+            
             ?>
 
 </body>
